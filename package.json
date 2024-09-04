@@ -3,7 +3,7 @@
     "version": "0.1.1",
     "description": "n8n node for requesting webpages using Puppeteer",
     "license": "MIT",
-    "homepage": "https://github.com/siduko/n8n-nodes-puppeteer-extended",
+    "homepage": "https://github.com/igabm/n8n-nodes-puppeteer-extended",
     "author": {
         "name": "hckdotng",
         "url": "https://hck.ng"
@@ -52,11 +52,9 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "axios": "^1.7.2",
         "lodash": "^4.17.21",
         "n8n-core": "*",
         "n8n-workflow": "*",
-        "node-ipc": "^11.1.0",
         "puppeteer": "^22.11.0",
         "puppeteer-extra": "^3.3.6",
         "puppeteer-extra-plugin-adblocker": "^2.13.6",
