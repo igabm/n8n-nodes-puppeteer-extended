@@ -33,14 +33,36 @@ const constants_1 = require("../constants");
 const ipcRequest = (type, parameters) => {
     return new Promise((resolve, reject) => {
         node_ipc_1.default.config.retry = 1500;
+       // node_ipc_1.default.config.silent = false;
+        //node_ipc_1.default.config.rawBuffer = true;
+        node_ipc_1.default.config.logDepth=2;
+        node_ipc_1.default.config.log = function (...args) {
+            const logMessage = args.join(' ');
+        
+            // Summarize all logs
+            const summary = summarizeLog(logMessage);
+        
+            // Log the summary
+            console.log(summary);
+        };
+        
+        // Helper function to summarize the log data
+        function summarizeLog(logMessage) {
+            const truncatedMessage = logMessage.length > 100
+                ? `${logMessage.slice(0, 100)}...`  // Truncate the message if too long
+                : logMessage;
+        
+            // You can add additional metadata or adjust the summary format here
+            return `[Summary] ${truncatedMessage}`;
+        }
         node_ipc_1.default.connectTo("puppeteer", () => {
             var _a, _b;
             console.log(`[Helper][IPC] Emit ${type}`);
             (_a = node_ipc_1.default.of.puppeteer) === null || _a === void 0 ? void 0 : _a.emit(type, parameters);
             (_b = node_ipc_1.default.of.puppeteer) === null || _b === void 0 ? void 0 : _b.on(type, (data) => {
-                console.log(`[Helper][IPC] On ${type}`, data);
+                console.log(`[Helper][IPC] On ${type}`);
                 if (_.startsWith(data, constants_1.EVENT_TYPES.ERROR)) {
-                    console.log(`[Helper][IPC] Error`, data);
+                    console.log(`[Helper][IPC] Error`);
                     reject(new Error(data));
                     return;
                 }

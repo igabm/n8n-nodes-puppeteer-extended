@@ -29,6 +29,27 @@ export interface INodeParameters {
 export const ipcRequest = (type: string, parameters: any): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		ipc.config.retry = 1500;
+		ipc.config.silent = false;
+		ipc.config.rawBuffer = true;
+		ipc.log = function (...args) {
+			const logMessage = args.join(' ');
+		
+			// Summarize all logs
+			const summary = summarizeLog(logMessage);
+		
+			// Log the summary
+			console.log(summary);
+		};
+		
+		// Helper function to summarize the log data
+		function summarizeLog(logMessage) {
+			const truncatedMessage = logMessage.length > 100
+				? `${logMessage.slice(0, 100)}...`  // Truncate the message if too long
+				: logMessage;
+		
+			// You can add additional metadata or adjust the summary format here
+			return `[Summary] ${truncatedMessage}`;
+		}
 		ipc.connectTo("puppeteer", () => {
 			console.log(`[Helper][IPC] Emit ${type}`)
 			ipc.of.puppeteer?.emit(type, parameters);

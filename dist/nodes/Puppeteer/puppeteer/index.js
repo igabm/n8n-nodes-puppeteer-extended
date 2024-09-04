@@ -12,6 +12,28 @@ const constants_1 = require("../constants");
 function default_1() {
     node_ipc_1.default.config.id = "puppeteer";
     node_ipc_1.default.config.retry = 1500;
+    //node_ipc_1.default.config.silent = false;
+    //node_ipc_1.default.config.rawBuffer = true;
+    node_ipc_1.default.config.logDepth=2;
+    node_ipc_1.default.config.log = function (...args) {
+        const logMessage = args.join(' ');
+    
+        // Summarize all logs
+        const summary = summarizeLog(logMessage);
+    
+        // Log the summary
+        console.log(summary);
+    };
+    
+    // Helper function to summarize the log data
+    function summarizeLog(logMessage) {
+        const truncatedMessage = logMessage.length > 100
+            ? `${logMessage.slice(0, 100)}...`  // Truncate the message if too long
+            : logMessage;
+    
+        // You can add additional metadata or adjust the summary format here
+        return `[Summary] ${truncatedMessage}`;
+    }
     node_ipc_1.default.serve(function () {
         node_ipc_1.default.server.on("launch", async (data, socket) => {
             var _a, _b;
