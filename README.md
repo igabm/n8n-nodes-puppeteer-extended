@@ -35,18 +35,18 @@ After installing the node, you can use it like any other node. n8n displays the 
 
 To get started install the package in your n8n root directory:
 
-`npm install git+ssh://git@github.com:siduko/n8n-nodes-puppeteer-extended.git#main`
+`npm install git+ssh://git@github.com:igabm/n8n-nodes-puppeteer-extended.git#main`
 
 
 For Docker-based deployments, you'll need to make sure [puppeteer is installed](https://developer.chrome.com/docs/puppeteer/troubleshooting/#running-puppeteer-in-docker) first. Then, add the following line before the font installation command in your [n8n Dockerfile](https://github.com/n8n-io/n8n/blob/master/docker/images/n8n/Dockerfile):
 
 
-`RUN cd /usr/local/lib/node_modules/n8n && npm install git+ssh://git@github.com:siduko/n8n-nodes-puppeteer-extended.git#main`
+`RUN cd /usr/local/lib/node_modules/n8n && npm install git+ssh://git@github.com:igabm/n8n-nodes-puppeteer-extended.git#main`
 
 Check out [this gist](https://gist.github.com/hckdotng/4232ceaaab6a3533aaca022cc2fdd726) for a working example with docker-compose.
 
 >
-> **Note:** If you've having issues running puppeteer, please check their [Troubleshooting guide](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md) before opening an issue here.
+> **Note:** This fork pins Puppeteer 25.10.0 for the Node 26 runtime used by n8n 2.x. Provide Chromium with `PUPPETEER_EXECUTABLE_PATH`; installation does not download a browser.
 >
 
 ## Node Reference
